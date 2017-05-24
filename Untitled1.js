@@ -46,8 +46,43 @@ function tick(
     )
     {
         bulletup();
+       alienmove();
     }
+function aliendown(alien){
+    var top=$(alien).position().top 
+    console.log(top)
+    top=top+5
+    top=Math.min(top,500)
+    $(alien).css('top',top)
+    if(top===500){
+        $(alien).removeClass("falling");
+    }
+ }
+function alienappear(){
+//alien needs to known when to appear
+        
+}
 
+function alienmove(){
+    $(".alien").each(
+        function(){
+            var alien=$(this);
+            if(alien.hasClass("falling")){
+                aliendown(alien)
+            } else {
+                alienup(alien)
+            }
+        })
+    
+}
 
-
-
+function alienup(alien){
+    var top=$(alien).position().top 
+    console.log(top)
+    top=top-5
+    top=Math.max(top,0)
+    $(alien).css('top',top)
+    if(top===0){
+        $(alien).addClass("falling");
+    }
+ }
