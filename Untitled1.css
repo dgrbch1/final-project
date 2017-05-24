@@ -1,0 +1,43 @@
+body {
+    background-image: url("http://wallpaperpulse.com/img/413903.jpg");
+}
+#game{
+
+
+}    
+#invader{
+    background-color: white;
+}
+
+
+
+.active {
+    background-color: red;
+    background-image: url(maxresdefault.jpg) ;
+ background-size: 50px 50px;
+background-repeat: no-repeat;  
+}
+#space{
+    width:500px; height:500px;
+    background-color: purple;
+    position: relative;
+}
+#player{
+  position:absolute;
+  width: 50px; height:50px;
+top:450px;    
+}
+.bullet{
+position: absolute;
+width:10px; height:10px;
+background-color:blue;    
+
+}
+.alien{
+width:50px;  height:50px;     
+position:absolute; 
+background-image: url(175x175bb.jpg);
+background-size:50px ;
+background-repeat:no-repeat;
+    
+}
