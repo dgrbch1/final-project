@@ -28,29 +28,33 @@ function shootbullet(player){
     
 $('#space').append(bullet)    
  }
-function bulletup(){
+function bulletup(alien){
     $(".bullet").each( 
         function(){
             var top=$(this).position().top
-            console.log(top)
+            //console.log(top)
             top=top-10;
             top=Math.max(top,0)
             $(this).css('top',top)
             if(top===0){
                 $(this).remove(); 
             }
+                    bulletcollision();
+
         }
+        
     )
+    
+    
 }
-function tick(
-    )
+function tick()
     {
         bulletup();
        alienmove();
     }
 function aliendown(alien){
     var top=$(alien).position().top 
-    console.log(top)
+   // console.log(top)
     top=top+5
     top=Math.min(top,500)
     $(alien).css('top',top)
@@ -67,16 +71,18 @@ function alienmove(){
     $(".alien").each(
         function(){
             var alien=$(this);
-            if(alien.hasClass("falling")){
+            if(alien.hasClass("falling")){  
                 aliendown(alien)
-            } else {
+            } else if(alien.hasClass("rising")) {
                 alienup(alien)
-            }
+            }else if(alien.hasClass("freeze")){}
+            aliencollision(alien, $("#player"))
         })
     
 }
 
 function alienup(alien){
+    $(alien).addClass("rising");
     var top=$(alien).position().top 
     console.log(top)
     top=top-5
@@ -86,3 +92,34 @@ function alienup(alien){
         $(alien).addClass("falling");
     }
  }
+function aliencollision(alien,player){
+var rect = alien.position();
+// console.log("alien ",rect.top,rect.left);    
+ var bye = player.position();
+  //  console.log("player ",
+//    bye.top,bye.left);
+  alienbottom=rect.top+alien.height();
+  playertop=bye.top;
+  if (alienbottom >= playertop) {
+      alienstop(alien);
+  }
+    
+}
+
+function alienstop(alien){
+    alert("you lose");
+    alien.removeClass("falling")
+     alien.removeClass("rising")
+     alien.addClass("freeze");
+     aliendisappear(alien);
+}
+function aliendisappear(alien){
+     $(".alien").hide();
+}
+function bulletcollision(){
+    var alien = $(".alien").first();
+ var done= alien.position();
+ console.log ("alien ",done.top,done.left);
+ var helpmeteacher=$(".bullet").position();
+ console.log("bullet", helpmeteacher.top,helpmeteacher.left ); 
+}
